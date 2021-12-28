@@ -1,4 +1,4 @@
-##Cosas k hay k hacer
+#Cosas k hay k hacer
 
 1) Con conjuntos de datos me refería a datos de muestra que vayáis a utilizar (p.e. Employees para MySQL https://dev.mysql.com/doc/employee/en/), no a los tipos de datos. 
 

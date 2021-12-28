@@ -8,7 +8,7 @@ RUN apt-get -y upgrade
 #Python3
 RUN apt install python3-pip -y
 
-#Preparar el directorio docker
+#Preparar el directorio influxdb
 COPY main.py /docker/main.py
 COPY sleep.sh /docker/sleep.sh
 COPY requirements.txt /docker/requirements.txt
