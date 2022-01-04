@@ -35,4 +35,4 @@ def imprimirdatos():
 if __name__ == "__main__":
     meterdatos()
     imprimirdatos()
-    # client.close()
+    client.close()

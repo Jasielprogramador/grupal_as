@@ -1,0 +1,102 @@
+  version: '3.3'
+
+services:
+
+  #INFLUXDB
+  influxdb:
+    image: influxdb:latest
+    ports:
+      - "8086:8086"
+    expose:
+      - "8086"
+    environment:
+      - DOCKER_INFLUXDB_INIT_MODE=setup
+      # El usuario para meterse a influxdb
+      - DOCKER_INFLUXDB_INIT_USERNAME=admin
+      # La contraseña para meterse a influxdb
+      - DOCKER_INFLUXDB_INIT_PASSWORD=changemeplease
+      # Organización inicial
+      - DOCKER_INFLUXDB_INIT_ORG=my-org
+      # Cubo o bucket inicial
+      - DOCKER_INFLUXDB_INIT_BUCKET=my-bucket
+      # Token de API para asociar con el usuario administrador. Si no se establece, InfluxDB genera automáticamente un token.
+      - DOCKER_INFLUXDB_INIT_ADMIN_TOKEN=my-token
+
+  influxdb_app:
+    build:
+      context: influxdb/
+      dockerfile: influxdb/Dockerfile
+    depends_on:
+      - influxdb
+
+  #MARIADB
+  mariadb:
+    image: mariadb
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: example
+      MYSQL_DATABASE: mydb
+      MYSQL_USER: user
+      MYSQL_PASSWORD: user
+
+    volumes:
+      - ./init:/docker-entrypoint-initdb.d
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
+
+  #MYSQL
+  mysql:
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_DATABASE: 'db'
+      MYSQL_USER: 'user'
+      MYSQL_PASSWORD: 'password'
+      MYSQL_ROOT_PASSWORD: 'password'
+    ports:
+      # <Port exposed> : < MySQL Port running inside container>
+      - '3306:3306'
+    expose:
+      # Opens port 3306 on the container
+      - '3306'
+      # Where our data will be persisted
+    volumes:
+      - my-db:/var/lib/mysql
+
+  #MONGODB
+  mongodb:
+    image: mongo
+    container_name: 'my-mongo-container'
+    environment:
+      - MONGO_INITDB_DATABASE=yourdatabasename
+      - MONGO_INITDB_ROOT_USERNAME=my-container-root-username
+      - MONGO_INITDB_ROOT_PASSWORD=password
+    volumes:
+      - ./mongo-volume:/data/mongodb
+    ports:
+      - '27017-27019:27017-27019'
+
+  #POSTGRES
+  database:
+     # Official Postgres image from DockerHub (we use the last version)
+    image: 'postgres:latest'
+
+    # By default, a Postgres database is running on the 5432 port.
+    # If we want to access the database from our computer (outside the container),
+    # we must share the port with our computer's port.
+    # The syntax is [port we want on our machine]:[port we want to retrieve in the container]
+    # Note: You are free to change your computer's port,
+    # but take into consideration that it will change the way
+    # you are connecting to your database.
+    ports:
+      - 5432:5432
+
+    environment:
+      POSTGRES_USER: username # The PostgreSQL user (useful to connect to the database)
+      POSTGRES_PASSWORD: password # The PostgreSQL password (useful to connect to the database)
+      POSTGRES_DB: default_database # The PostgreSQL default database (automatically created at first launch)
+
