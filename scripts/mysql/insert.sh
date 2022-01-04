@@ -1,0 +1,10 @@
+sysbench \
+--db-driver=mysql \
+--mysql-user=sbtest_user \
+--mysql_password=password \
+--mysql-db=sbtest \
+--mysql-host=192.168.66.5 \
+--mysql-port=3306 \
+--tables=16 \
+--table-size=10000 \
+/usr/share/sysbench/oltp_read_write.lua prepare

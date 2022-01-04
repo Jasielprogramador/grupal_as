@@ -1,4 +1,4 @@
-  version: '3.3'
+version: '3.3'
 
 services:
 
@@ -24,7 +24,7 @@ services:
 
   influxdb_app:
     build:
-      context: influxdb/
+      context: scripts/influxdb
       dockerfile: influxdb/Dockerfile
     depends_on:
       - influxdb
@@ -70,13 +70,13 @@ services:
   #MONGODB
   mongodb:
     image: mongo
-    container_name: 'my-mongo-container'
+    container_name: 'my-mongodb-container'
     environment:
       - MONGO_INITDB_DATABASE=yourdatabasename
       - MONGO_INITDB_ROOT_USERNAME=my-container-root-username
       - MONGO_INITDB_ROOT_PASSWORD=password
     volumes:
-      - ./mongo-volume:/data/mongodb
+      - ./mongodb-volume:/data/mongodb
     ports:
       - '27017-27019:27017-27019'
 
@@ -84,14 +84,6 @@ services:
   database:
      # Official Postgres image from DockerHub (we use the last version)
     image: 'postgres:latest'
-
-    # By default, a Postgres database is running on the 5432 port.
-    # If we want to access the database from our computer (outside the container),
-    # we must share the port with our computer's port.
-    # The syntax is [port we want on our machine]:[port we want to retrieve in the container]
-    # Note: You are free to change your computer's port,
-    # but take into consideration that it will change the way
-    # you are connecting to your database.
     ports:
       - 5432:5432
 
@@ -100,3 +92,6 @@ services:
       POSTGRES_PASSWORD: password # The PostgreSQL password (useful to connect to the database)
       POSTGRES_DB: default_database # The PostgreSQL default database (automatically created at first launch)
 
+
+  app:
+    build: .
