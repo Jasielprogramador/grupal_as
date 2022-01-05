@@ -5,93 +5,79 @@ services:
   #INFLUXDB
   influxdb:
     image: influxdb:latest
+    container_name: influxdb
     ports:
       - "8086:8086"
     expose:
       - "8086"
     environment:
       - DOCKER_INFLUXDB_INIT_MODE=setup
-      # El usuario para meterse a influxdb
-      - DOCKER_INFLUXDB_INIT_USERNAME=admin
-      # La contraseña para meterse a influxdb
-      - DOCKER_INFLUXDB_INIT_PASSWORD=changemeplease
-      # Organización inicial
+      - DOCKER_INFLUXDB_INIT_USERNAME=user
+      - DOCKER_INFLUXDB_INIT_PASSWORD=password
       - DOCKER_INFLUXDB_INIT_ORG=my-org
-      # Cubo o bucket inicial
       - DOCKER_INFLUXDB_INIT_BUCKET=my-bucket
-      # Token de API para asociar con el usuario administrador. Si no se establece, InfluxDB genera automáticamente un token.
       - DOCKER_INFLUXDB_INIT_ADMIN_TOKEN=my-token
 
-  influxdb_app:
-    build:
-      context: scripts/influxdb
-      dockerfile: influxdb/Dockerfile
-    depends_on:
-      - influxdb
+    volumes:
+      -
 
   #MARIADB
   mariadb:
     image: mariadb
+    container_name: mariadb
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: example
-      MYSQL_DATABASE: mydb
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: sakila-db
       MYSQL_USER: user
-      MYSQL_PASSWORD: user
+      MYSQL_PASSWORD: password
 
     volumes:
-      - ./init:/docker-entrypoint-initdb.d
-
-  adminer:
-    image: adminer
-    restart: always
-    ports:
-      - 8080:8080
+      -
 
   #MYSQL
   mysql:
     image: mysql:5.7
+    container_name: mysql
     restart: always
     environment:
-      MYSQL_DATABASE: 'db'
+      MYSQL_DATABASE: 'sakila-db'
       MYSQL_USER: 'user'
       MYSQL_PASSWORD: 'password'
       MYSQL_ROOT_PASSWORD: 'password'
     ports:
-      # <Port exposed> : < MySQL Port running inside container>
       - '3306:3306'
     expose:
-      # Opens port 3306 on the container
       - '3306'
-      # Where our data will be persisted
     volumes:
-      - my-db:/var/lib/mysql
+      -
 
   #MONGODB
   mongodb:
     image: mongo
-    container_name: 'my-mongodb-container'
+    container_name: mongodb
     environment:
       - MONGO_INITDB_DATABASE=yourdatabasename
-      - MONGO_INITDB_ROOT_USERNAME=my-container-root-username
+      - MONGO_INITDB_ROOT_USERNAME=user
       - MONGO_INITDB_ROOT_PASSWORD=password
-    volumes:
-      - ./mongodb-volume:/data/mongodb
     ports:
       - '27017-27019:27017-27019'
+    volumes:
+      - ./mongodb-volume:/data/mongodb
 
   #POSTGRES
-  database:
-     # Official Postgres image from DockerHub (we use the last version)
+  postgres:
     image: 'postgres:latest'
+    container_name: postgres
     ports:
       - 5432:5432
-
     environment:
-      POSTGRES_USER: username # The PostgreSQL user (useful to connect to the database)
-      POSTGRES_PASSWORD: password # The PostgreSQL password (useful to connect to the database)
-      POSTGRES_DB: default_database # The PostgreSQL default database (automatically created at first launch)
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: pagila
+    volumes:
+      -
 
-
-  app:
+  dockerfile:
     build: .
+
