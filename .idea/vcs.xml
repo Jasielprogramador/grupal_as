@@ -4,6 +4,8 @@
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/CD/pagila" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/pagila" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/scripts/mongodb/asdfasfdasdf" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/scripts/mongodb/mongo_bench" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/scripts/mongodb/sysbench-mongodb-lua" vcs="Git" />
   </component>
 </project>
