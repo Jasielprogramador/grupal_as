@@ -19,7 +19,7 @@ services:
       - DOCKER_INFLUXDB_INIT_ADMIN_TOKEN=my-token
 
     volumes:
-      -
+      - data:/sakila
 
   #MARIADB
   mariadb:
