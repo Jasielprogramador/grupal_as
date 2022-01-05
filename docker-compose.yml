@@ -5,7 +5,7 @@ services:
   #INFLUXDB
   influxdb:
     image: influxdb:latest
-    container_name: influxdb
+    container_name: influxdb_container
     ports:
       - "8086:8086"
     expose:
@@ -18,30 +18,23 @@ services:
       - DOCKER_INFLUXDB_INIT_BUCKET=my-bucket
       - DOCKER_INFLUXDB_INIT_ADMIN_TOKEN=my-token
 
-    volumes:
-      - data:/sakila
-
   #MARIADB
   mariadb:
     image: mariadb
-    container_name: mariadb
+    container_name: mariadb_container
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: password
-      MYSQL_DATABASE: sakila-db
+      MYSQL_DATABASE: db
       MYSQL_USER: user
       MYSQL_PASSWORD: password
-
-    volumes:
-      -
-
   #MYSQL
   mysql:
     image: mysql:5.7
-    container_name: mysql
+    container_name: mysql_container
     restart: always
     environment:
-      MYSQL_DATABASE: 'sakila-db'
+      MYSQL_DATABASE: 'db'
       MYSQL_USER: 'user'
       MYSQL_PASSWORD: 'password'
       MYSQL_ROOT_PASSWORD: 'password'
@@ -49,34 +42,29 @@ services:
       - '3306:3306'
     expose:
       - '3306'
-    volumes:
-      -
 
   #MONGODB
   mongodb:
     image: mongo
-    container_name: mongodb
+    container_name: mongodb_container
     environment:
-      - MONGO_INITDB_DATABASE=yourdatabasename
+      - MONGO_INITDB_DATABASE=db
       - MONGO_INITDB_ROOT_USERNAME=user
       - MONGO_INITDB_ROOT_PASSWORD=password
     ports:
       - '27017-27019:27017-27019'
-    volumes:
-      - ./mongodb-volume:/data/mongodb
 
   #POSTGRES
   postgres:
-    image: 'postgres:latest'
-    container_name: postgres
+    image: postgres:latest
+    container_name: postgres_container
     ports:
       - 5432:5432
     environment:
       POSTGRES_USER: user
       POSTGRES_PASSWORD: password
-      POSTGRES_DB: pagila
-    volumes:
-      -
+      POSTGRES_DB: db
+
 
   dockerfile:
     build: .

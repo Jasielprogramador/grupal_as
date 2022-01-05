@@ -1,7 +1,7 @@
 import os
 import sys
 
-def menu(zenbakia):
+def operacion(zenbakia):
     ans = True
     while ans:
         print("""
@@ -41,13 +41,13 @@ def menu(zenbakia):
                 print("\n Por favor elige uno de estos valores [1,2,3,4]")
         elif zenbakia == "3":
             if (emaitza == "1"):
-                os.system('./scripts/mysql/insert.sh')
+                os.system('scripts/mysql/insert.sh')
             elif (emaitza == "2"):
-                os.system('./scripts/mysql/delete.sh')
+                os.system('scripts/mysql/delete.sh')
             elif (emaitza == "3"):
-                os.system('./scripts/mysql/select.sh')
+                os.system('scripts/mysql/select.sh')
             elif (emaitza == "4"):
-                os.system('./scripts/mysql/update.sh')
+                os.system('scripts/mysql/update.sh')
             elif (emaitza == "5"):
                 ans = False
             else:
@@ -93,15 +93,15 @@ def main():
 
         emaitza = input("Elige que base de datos quieres probar: ")
         if emaitza == "1":
-            menu("1")
+            operacion("1")
         elif emaitza == "2":
-            menu("2")
+            operacion("2")
         elif emaitza == "3":
-            menu("3")
+            operacion("3")
         elif emaitza == "4":
-            menu("4")
+            operacion("4")
         elif emaitza == "5":
-            menu("5")
+            operacion("5")
         elif emaitza == "6":
             sys.exit(0)
         elif emaitza != "":

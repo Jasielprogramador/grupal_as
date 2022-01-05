@@ -1,10 +1,37 @@
+#!/bin/bash
+
 sysbench \
 --db-driver=mysql \
---mysql-user=sbtest_user \
+--mysql-user=user \
 --mysql_password=password \
---mysql-db=sbtest \
---mysql-host=192.168.66.5 \
+--mysql-db=db \
+--mysql-host=127.0.0.1 \
 --mysql-port=3306 \
---tables=16 \
---table-size=10000 \
-/usr/share/sysbench/oltp_read_write.lua prepare
+--tables=6 \
+--table-size=100000 \
+--threads=6 \
+/usr/share/sysbench/oltp_insert.lua cleanup
+
+sysbench \
+--db-driver=mysql \
+--mysql-user=user \
+--mysql_password=password \
+--mysql-db=db \
+--mysql-host=127.0.0.1 \
+--mysql-port=3306 \
+--tables=6 \
+--table-size=100000 \
+--threads=6 \
+/usr/share/sysbench/oltp_insert.lua prepare
+
+sysbench \
+--db-driver=mysql \
+--mysql-user=user \
+--mysql_password=password \
+--mysql-db=db \
+--mysql-host=127.0.0.1 \
+--mysql-port=3306 \
+--tables=6 \
+--table-size=100000 \
+--threads=6 \
+/usr/share/sysbench/oltp_insert.lua run
