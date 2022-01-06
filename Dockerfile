@@ -6,9 +6,7 @@ RUN apt-get -y update
 RUN apt-get -y upgrade
 
 #Instalar sysbench
-RUN apt-get install sysbench libmongoc-dev libbson-dev luarocks -y
-RUN luarocks install mongorover --local
-
+RUN apt-get install sysbench
 
 #Copiar las carpetas y cambiar permisos
 COPY scripts /programa/scripts
