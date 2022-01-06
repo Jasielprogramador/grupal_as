@@ -3,7 +3,7 @@
 sysbench \
 --db-driver=pgsql \
 --report-interval=2 \
---oltp-table-size=100000 \
+--oltp-table-size=100 \
 --oltp-tables-count=6 \
 --threads=6 \
 --pgsql-host=127.0.0.1 \
@@ -17,7 +17,7 @@ run
 sysbench \
 --db-driver=pgsql \
 --report-interval=2 \
---oltp-table-size=100000 \
+--oltp-table-size=100 \
 --oltp-tables-count=6 \
 --threads=6 \
 --pgsql-host=127.0.0.1 \

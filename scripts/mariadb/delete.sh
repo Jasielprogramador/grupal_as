@@ -8,7 +8,7 @@ sysbench \
 --mysql-host=127.0.0.1 \
 --mysql-port=3306 \
 --tables=6 \
---table-size=100000 \
+--table-size=100 \
 --threads=6 \
 /usr/share/sysbench/oltp_delete.lua cleanup
 
@@ -21,7 +21,7 @@ sysbench \
 --mysql-host=127.0.0.1 \
 --mysql-port=3306 \
 --tables=6 \
---table-size=100000 \
+--table-size=100 \
 --threads=6 \
 /usr/share/sysbench/oltp_delete.lua prepare
 
@@ -34,7 +34,7 @@ sysbench \
 --mysql-host=127.0.0.1 \
 --mysql-port=3306 \
 --tables=6 \
---table-size=100000 \
+--table-size=100 \
 --threads=6 \
 /usr/share/sysbench/oltp_delete.lua run
 
