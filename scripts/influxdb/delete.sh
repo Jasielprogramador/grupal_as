@@ -1,4 +1,4 @@
 #!/bin/bash
 
 cd ~/go/bin/
-./go/bin/influxdb-benchmark --count 100 --clients 6 --clean --format=text -username="user" -password="password"
+./influxdb-benchmark --count 10000 --clients 10 --batch 10  --format=text -username="user" -password="password"

@@ -7,8 +7,8 @@ sysbench \
 --mysql-db=db \
 --mysql-host=127.0.0.1 \
 --mysql-port=3306 \
---tables=6 \
---table-size=100 \
+--tables=10 \
+--table-size=10000 \
 --threads=6 \
 /usr/share/sysbench/oltp_update_index.lua cleanup
 
@@ -19,8 +19,8 @@ sysbench \
 --mysql-db=db \
 --mysql-host=127.0.0.1 \
 --mysql-port=3306 \
---tables=6 \
---table-size=100 \
+--tables=10 \
+--table-size=10000 \
 --threads=6 \
 /usr/share/sysbench/oltp_update_index.lua prepare
 
@@ -31,7 +31,7 @@ sysbench \
 --mysql-db=db \
 --mysql-host=127.0.0.1 \
 --mysql-port=3306 \
---tables=6 \
---table-size=100 \
+--tables=10 \
+--table-size=10000 \
 --threads=6 \
 /usr/share/sysbench/oltp_update_index.lua run

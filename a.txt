@@ -1,0 +1,9 @@
+
+            1. PROBAR MARIADB
+            2. PROBAR MONGODB
+            3. PROBAR MYSQL
+            4. PROBAR POSTGRES
+            5. PROBAR INFLUXDB
+            6. SALIRSE DEL PROGRAMA
+        
+Elige que base de datos quieres probar: 
